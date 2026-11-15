@@ -1,0 +1,226 @@
+:root {
+  --shell-hi: #2c3b5e;
+  --shell: #1a2540;
+  --shell-lo: #0e1528;
+  --bezel-hi: #3b424f;
+  --bezel-lo: #1f242c;
+  --lcd-hi: #d3f6df;
+  --lcd: #c7f0d8;
+  --lcd-lo: #a9d6bb;
+  --key-hi: #d9dee8;
+  --key: #aab3c4;
+  --key-lo: #7b8599;
+  --dp: clamp(150px, 46vw, 220px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #07090f;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---------- Gehäuse ---------- */
+.phone {
+  width: 100%;
+  max-width: 540px;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  padding: max(12px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+  background:
+    radial-gradient(120% 60% at 30% 0%, rgba(255,255,255,.10), transparent 60%),
+    linear-gradient(160deg, var(--shell-hi), var(--shell) 45%, var(--shell-lo));
+}
+
+@media (min-width: 620px) and (min-height: 720px) {
+  body { align-items: center; padding: 20px; }
+  .phone {
+    height: min(calc(100dvh - 40px), 1000px);
+    border-radius: 56px 56px 72px 72px / 48px 48px 90px 90px;
+    padding: 18px 22px 26px;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.12),
+      inset 0 -6px 18px rgba(0,0,0,.45),
+      0 30px 60px rgba(0,0,0,.6);
+  }
+}
+
+.earpiece {
+  flex: none;
+  align-self: center;
+  width: 70px;
+  height: 7px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, #070b14 0 4px, transparent 4px 7px);
+  opacity: .85;
+}
+
+/* ---------- Display ---------- */
+.bezel {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 12px 6px;
+  border-radius: 22px 22px 34px 34px / 22px 22px 44px 44px;
+  background: linear-gradient(180deg, var(--bezel-hi), var(--bezel-lo));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15),
+    inset 0 -2px 6px rgba(0,0,0,.5),
+    0 2px 4px rgba(0,0,0,.4);
+}
+
+.lcd {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 50% 45%, var(--lcd-hi), var(--lcd) 55%, var(--lcd-lo));
+  box-shadow:
+    inset 0 3px 8px rgba(0,0,0,.35),
+    inset 0 0 0 1px rgba(0,0,0,.25);
+  touch-action: none;
+}
+
+.lcd canvas {
+  position: absolute;
+  display: block;
+}
+
+.bezel-label {
+  flex: none;
+  text-align: center;
+  padding-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .45em;
+  color: #9aa3b3;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+}
+
+/* ---------- Tasten ---------- */
+.controls {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 4px 0;
+}
+
+.side-key {
+  appearance: none;
+  border: 0;
+  width: 58px;
+  height: 46px;
+  border-radius: 23px;
+  display: grid;
+  place-items: center;
+  font: 700 18px/1 system-ui, sans-serif;
+  color: #2a3346;
+  background: linear-gradient(180deg, var(--key-hi), var(--key) 60%, var(--key-lo));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 3px 0 #4b5468,
+    0 5px 8px rgba(0,0,0,.45);
+  cursor: pointer;
+  touch-action: none;
+}
+.side-key.down {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 1px 0 #4b5468, 0 2px 4px rgba(0,0,0,.4);
+}
+.side-key .mute { display: none; }
+.side-key.muted .wave { display: none; }
+.side-key.muted .mute { display: inline; }
+
+/* Steuerkreuz */
+.dpad {
+  position: relative;
+  width: var(--dp);
+  height: var(--dp);
+  flex: none;
+  touch-action: none;
+  cursor: pointer;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,0,0,.35) 0 58%, transparent 70%);
+}
+
+.arm, .hub {
+  position: absolute;
+  background: linear-gradient(180deg, var(--key-hi), var(--key) 55%, var(--key-lo));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 4px 0 #4b5468,
+    0 6px 10px rgba(0,0,0,.45);
+  transition: transform .04s, filter .04s;
+}
+.hub { left: 33%; top: 33%; width: 34%; height: 34%; box-shadow: inset 0 1px 0 rgba(255,255,255,.7); }
+.arm.up    { left: 33%; top: 3%;    width: 34%; height: 34%; border-radius: 14px 14px 0 0; }
+.arm.down  { left: 33%; bottom: 3%; width: 34%; height: 34%; border-radius: 0 0 14px 14px; }
+.arm.left  { top: 33%; left: 3%;    width: 34%; height: 34%; border-radius: 14px 0 0 14px; }
+.arm.right { top: 33%; right: 3%;   width: 34%; height: 34%; border-radius: 0 14px 14px 0; }
+
+.arm span {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 0; height: 0;
+  border: 8px solid transparent;
+  transform: translate(-50%, -50%);
+}
+.arm.up span    { border-bottom: 10px solid #4a5469; border-top-width: 0; }
+.arm.down span  { border-top: 10px solid #4a5469; border-bottom-width: 0; }
+.arm.left span  { border-right: 10px solid #4a5469; border-left-width: 0; }
+.arm.right span { border-left: 10px solid #4a5469; border-right-width: 0; }
+
+.ok {
+  position: absolute;
+  left: 37%; top: 37%;
+  width: 26%; height: 26%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: #4a5469;
+  background: radial-gradient(circle at 50% 35%, var(--key-lo), var(--key) 70%);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.6);
+}
+
+.dpad[data-press="up"]    .arm.up,
+.dpad[data-press="down"]  .arm.down,
+.dpad[data-press="left"]  .arm.left,
+.dpad[data-press="right"] .arm.right { filter: brightness(.85); }
+.dpad[data-press="up"]    .arm.up    { transform: translateY(2px); }
+.dpad[data-press="down"]  .arm.down  { transform: translateY(2px); }
+.dpad[data-press="left"]  .arm.left  { transform: translate(1px, 2px); }
+.dpad[data-press="right"] .arm.right { transform: translate(-1px, 2px); }
+.dpad[data-press="ok"]    .ok        { filter: brightness(.8); transform: translateY(1px); }
+
+@media (max-height: 560px) {
+  :root { --dp: 128px; }
+  .phone { gap: 8px; }
+  .side-key { width: 50px; height: 40px; }
+}

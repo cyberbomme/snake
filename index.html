@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#141c2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Snake</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="phone">
+    <div class="earpiece" aria-hidden="true"></div>
+
+    <div class="bezel">
+      <div class="lcd" id="lcd">
+        <canvas id="screen" aria-label="Spielfeld"></canvas>
+      </div>
+      <div class="bezel-label" aria-hidden="true">SNAKE</div>
+    </div>
+
+    <div class="controls">
+      <button class="side-key" data-k="back" aria-label="Zurück / Pause">C</button>
+
+      <div class="dpad" id="dpad" role="group" aria-label="Steuerkreuz">
+        <div class="arm up"><span></span></div>
+        <div class="arm down"><span></span></div>
+        <div class="arm left"><span></span></div>
+        <div class="arm right"><span></span></div>
+        <div class="hub"></div>
+        <div class="ok">OK</div>
+      </div>
+
+      <button class="side-key" data-k="sound" id="soundKey" aria-label="Ton an/aus">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/>
+          <path class="wave" d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path class="mute" d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
